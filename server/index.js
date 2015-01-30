@@ -7,7 +7,12 @@ var server = new Hapi.Server();
 server.connection({
     port: 7843,
     routes: {
-        cors: true
+        security: {
+            xframe: {
+                rule: 'allow-from',
+                source: 'thefantasyfix.com'
+            }
+        }
     }
 });
 
