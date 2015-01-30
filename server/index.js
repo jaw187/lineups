@@ -10,7 +10,7 @@ server.connection({
         security: {
             xframe: {
                 rule: 'allow-from',
-                source: 'http://thefantasyfix.com'
+                source: 'https://thefantasyfix.com'
             }
         }
     }
