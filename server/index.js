@@ -5,7 +5,8 @@ var server = new Hapi.Server();
 
 
 server.connection({
-    port: 7843
+    port: 7843,
+    cors: true
 });
 
 
