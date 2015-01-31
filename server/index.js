@@ -1,4 +1,5 @@
 var Hapi = require('hapi');
+var Fs = require('fs');
 
 
 var server = new Hapi.Server();
@@ -13,6 +14,10 @@ server.connection({
                 source: 'https://thefantasyfix.com'
             }
         }
+    },
+    tls: {
+        key: Fs.readFileSync('/root/selfsigned.key'),
+        cert: Fs.readFileSync('/root/selfsigned.crt')
     }
 });
 
