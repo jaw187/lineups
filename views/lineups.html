@@ -1,4 +1,4 @@
-<div class="row" id="lineupsContainer"></div>
+<div id="lineupsContainer"></div>
 
 
 <script type="text/jsx">
@@ -111,13 +111,13 @@ var Lineup = React.createClass({
         var data = this.props.data;
         return (
             <div className="row">
-                <div className="col-md-12">
+                <div className="col-xs-12">
                     <Gameinfo data={data.info} />
                 </div>
-                <div className="col-md-6">
+                <div className="col-xs-6">
                     <Team data={data.away} />
                 </div>
-                <div className="col-md-6">
+                <div className="col-xs-6">
                     <Team data={data.home} />
                 </div>
             </div>
@@ -155,7 +155,7 @@ var LineupsContainer = React.createClass({
     render: function () {
 
         return (
-            <div className="col-md-12">
+            <div className="container">
                 <Lineups data={this.state.data} />
             </div>
         );
