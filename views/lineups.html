@@ -19,26 +19,112 @@ var loadData = function (self) {
     });
 };
 
-var Lineup = React.createClass({
+
+var Weather = React.createClass({
+
     render: function () {
 
         return (
+            <div>{this.props.temp} - {this.props.desc} - {this.props.precip} - {this.props.isDome}</div>
+        );
+    }
+});
+
+
+var Gametime = React.createClass({
+
+    render: function () {
+
+        var gametime = this.props.gametime;
+        return (
+            <div>{gametime}</div>
+        );
+    }
+});
+
+
+var Teams = React.createClass({
+
+    render: function () {
+
+        return (
+            <div>{this.props.away} vs {this.props.home}</div>
+        );
+    }
+});
+
+
+var Gameinfo = React.createClass({
+    render: function () {
+
+        var data = this.props.data;
+        return (
+            <div>
+                <Weather temp={data.temp} desc={data.desc} precip={data.precip} isDome={data.dome} />
+                <Gametime time={data.gametime} />
+                <Teams home={data.home_team} away={data.away_team} />
+            </div>
+        )
+    }
+});
+
+
+var Player = React.createClass({
+    render: function () {
+
+        var data = this.props.data;
+        return (
+            <div>{data.order} - {data.player}</div>
+        );
+    }
+});
+
+
+var Team = React.createClass({
+    render: function () {
+
+        var players = [];
+        var data = this.props.data;
+
+        for (var i in data) {
+            if (data.hasOwnProperty(i)) {
+                var player = data[i];
+                player.order = i;
+                players.push(player);
+            }
+        }
+
+        players = players.map(function (player) {
+            return (
+                <Player data={player} />
+            )
+        })
+        return (
+            <div>{players}</div>
+        );
+    }
+});
+
+var Lineup = React.createClass({
+    render: function () {
+
+        var data = this.props.data;
+        return (
             <div className="row">
                 <div className="col-md-12">
-                    <Gameinfo data={this.data.info} />
-                </div>
-            </div>
-            <div className="row">
-                <div className="col-md-6">
-                    <Team data={this.data.away} />
+                    <Gameinfo data={data.info} />
                 </div>
                 <div className="col-md-6">
-                    <Team data={this.data.home} />
+                    <Team data={data.away} />
+                </div>
+                <div className="col-md-6">
+                    <Team data={data.home} />
                 </div>
             </div>
         );
     }
 });
+
 
 var Lineups = React.createClass({
     render: function () {
@@ -51,7 +137,7 @@ var Lineups = React.createClass({
         });
 
         return (
-            {lineups}
+            <div>{lineups}</div>
         );
     }
 });
@@ -81,3 +167,5 @@ React.render(
     <LineupsContainer url='/lineups' />,
     document.getElementById('lineupsContainer')
 );
+
+</script>

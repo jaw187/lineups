@@ -47,7 +47,7 @@ server.route({
     path: '/',
     handler: function (request, reply) {
 
-        return reply().view('lineups');
+        return reply.view('lineups');
     }
 });
 
