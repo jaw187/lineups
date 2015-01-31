@@ -32,4 +32,7 @@ server.route({
 });
 
 
-server.start();
+server.start(function () {
+
+    console.log('Look what you have done');
+});
