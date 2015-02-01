@@ -1,6 +1,5 @@
 <div id="lineupsContainer"></div>
 
-
 <script type="text/jsx">
 
 var loadData = function (self) {
@@ -24,8 +23,25 @@ var Weather = React.createClass({
 
     render: function () {
 
+        var backgrounds = [
+            'green',
+            'yellow',
+            'yellow',
+            '#FF4D4D'
+        ];
+
+        var chanceOfRain = this.props.precip.replace('&#37;','');
+        var index = Math.floor(chanceOfRain / 25);
+        if (index === 4) {
+            index = 3;
+        }
+
+        var style = {
+            background: backgrounds[index],
+            padding: '4px'
+        };
         return (
-            <div>{this.props.temp} - {this.props.desc} - {this.props.precip} - {this.props.isDome}</div>
+            <div style={style}>{this.props.temp} - {this.props.desc} - {this.props.precip} - {this.props.isDome}</div>
         );
     }
 });
@@ -47,8 +63,22 @@ var Teams = React.createClass({
 
     render: function () {
 
+        var away = '/logos/' + this.props.away.replace(' ','').toLowerCase() + '.jpg';
+        var home = '/logos/' + this.props.home.replace(' ','').toLowerCase() + '.jpg';
+
+        var style = {
+            textAlign: 'center'
+        };
+
         return (
-            <div>{this.props.away} vs {this.props.home}</div>
+            <div className="row">
+                <div className="col-xs-6" style={style}>
+                    <img src={away} />
+                </div>
+                <div className="col-xs-6" style={style}>
+                    <img src={home} />
+                </div>
+            </div>
         );
     }
 });
@@ -58,11 +88,16 @@ var Gameinfo = React.createClass({
     render: function () {
 
         var data = this.props.data;
+
+        var style = {
+            padding: '4px'
+        };
+
         return (
-            <div>
-                <Weather temp={data.temp} desc={data.desc} precip={data.precip} isDome={data.dome} />
+            <div style={style}>
                 <Gametime time={data.gametime} />
                 <Teams home={data.home_team} away={data.away_team} />
+                <Weather temp={data.temp} desc={data.desc} precip={data.precip} isDome={data.dome} />
             </div>
         )
     }
@@ -73,8 +108,12 @@ var Player = React.createClass({
     render: function () {
 
         var data = this.props.data;
+        var style = {
+            fontSize: '16pt'
+        };
+
         return (
-            <div>{data.order} - {data.player}</div>
+            <div style={style}>{data.order} - {data.player}</div>
         );
     }
 });
@@ -108,9 +147,14 @@ var Team = React.createClass({
 var Lineup = React.createClass({
     render: function () {
 
+        var style = {
+            padding: '8px',
+            margin: '8px'
+        };
+
         var data = this.props.data;
         return (
-            <div className="row">
+            <div className="row" style={style}>
                 <div className="col-xs-12">
                     <Gameinfo data={data.info} />
                 </div>
@@ -154,9 +198,13 @@ var LineupsContainer = React.createClass({
     },
     render: function () {
 
+        var style = {
+            fontFamily: "'Play', arial, serif"
+        };
+
         return (
             <div className="container">
-                <Lineups data={this.state.data} />
+                <Lineups data={this.state.data} style={style} />
             </div>
         );
     }

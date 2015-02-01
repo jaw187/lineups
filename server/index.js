@@ -89,6 +89,16 @@ server.route({
     }
 });
 
+server.route({
+    method: 'GET',
+    path: '/logos/{param*}',
+    handler: {
+        directory: {
+            path: Path.join(__dirname, '../logos')
+        }
+    }
+})
+
 
 server.start(function () {
 
